@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/menu.js" defer></script>
+    <script src="assets/js/snakecontroller.js" defer></script>
+</head>
+<body>
+    <header>
+        <button class="menu-toggle">☰ Menú</button>
+        <h1>Snake Game</h1>
+        <nav id="menu" class="menu">
+            <a href="index.html">Página Principal</a>
+            <a href="soulslikeagt.html">Souls Like: A Girl's Trial</a>
+        </nav>
+    </header>
+
+    <section id="jugar">
+        <h2>Cómo Jugar</h2>
+        <p>
+            Usa las flechas del teclado para mover la serpiente: <br>
+            - ↑ Arriba <br>
+            - ↓ Abajo <br>
+            - ← Izquierda <br>
+            - → Derecha
+        </p>
+        
+        <!-- Contenedor del marcador de puntuación -->
+        <div id="score-container">
+            <p>Puntuación: <span id="score">0</span></p>
+        </div>
+
+        <canvas id="snakeCanvas" width="800" height="800" style="background-color: white; margin: 20px auto; display: block;"></canvas>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Snake Game. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
