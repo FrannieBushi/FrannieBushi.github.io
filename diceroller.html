@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiradas de Rol</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+	<script src="assets/js/menu.js" defer></script>
+    <script src="assets/js/rol_dice_roller.js" defer></script>
+</head>
+<body>
+    <header>
+        <button class="menu-toggle">☰ Menú</button>
+        <h1>Tiradas de Rol</h1>
+        <nav id="menu" class="menu" style="display: none;">
+            <a href="index.html">Inicio</a>
+            <a href="soulslikeagt.html">Souls Like: A Girl's Trial</a>
+            <a href="snakegame.html">SnakeGame</a>
+        </nav>
+    </header>
+
+    <section id="tiradas" class="contenido">
+        <h2>Simulador de Tiradas</h2>
+        <form id="tiradas-form">
+            <div>
+                <label for="bonificadores">Bonificadores:</label>
+                <input type="number" id="bonificadores" name="bonificadores" value="0">
+            </div>
+
+            <div>
+                <label for="tipo-dado">Selecciona el dado:</label>
+                <select id="tipo-dado" name="tipo-dado">
+                    <option value="4">D4</option>
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                    <option value="12">D12</option>
+                    <option value="20">D20</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="cantidad-dados">Cantidad de dados:</label>
+                <input type="number" id="cantidad-dados" name="cantidad-dados" value="1" min="1">
+            </div>
+
+            <button type="button" id="tirar-dados" class="button">Tirar Dados</button>
+        </form>
+
+        <div id="resultado">
+            <h3>Resultado:</h3>
+            <p id="resultado-tiradas">--</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 FrannieBushi</p>
+    </footer>
+</body>
+</html>

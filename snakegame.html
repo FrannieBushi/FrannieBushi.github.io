@@ -6,7 +6,7 @@
     <title>Snake Game</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/menu.js" defer></script>
-    <script src="assets/js/snakecontroller.js" defer></script>
+    <script src="assets/js/snakecontroller.js" defer></script> <!-- Enlace al archivo JS externo -->
 </head>
 <body>
     <header>
@@ -15,26 +15,23 @@
         <nav id="menu" class="menu">
             <a href="index.html">Página Principal</a>
             <a href="soulslikeagt.html">Souls Like: A Girl's Trial</a>
+			<a href="diceroller.html">Simulador de Tiradas</a>
         </nav>
     </header>
 
     <section id="jugar">
-        <h2>Cómo Jugar</h2>
-        <p>
-            Usa las flechas del teclado para mover la serpiente: <br>
-            - ↑ Arriba <br>
-            - ↓ Abajo <br>
-            - ← Izquierda <br>
-            - → Derecha
-        </p>
-        
         <!-- Contenedor del marcador de puntuación -->
         <div id="score-container">
-            <p>Puntuación: <span id="score">0</span></p>
+            <p id="score-label">Puntuación: <span id="score">0</span></p>
         </div>
-
-        <canvas id="snakeCanvas" width="800" height="800" style="background-color: white; margin: 20px auto; display: block;"></canvas>
+        <canvas id="snakeCanvas" width="400" height="400" style="background-color: white; margin: 20px auto; display: block;"></canvas>
+        
+        <!-- Botón para iniciar el juego -->
+        <div id="start-button-container">
+            <button id="start-button">Iniciar Juego</button>
+        </div>
     </section>
+
     <footer>
     </footer>
 </body>
