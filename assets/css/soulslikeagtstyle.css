@@ -1,0 +1,31 @@
+
+/* Estilos para la sección "Sobre el Juego" */
+#sobre-el-juego {
+    text-align: center; /* Asegura que todo el contenido en la sección esté centrado */
+}
+
+.image-container {
+    text-align: center; /* Centra el contenido dentro de este contenedor */
+}
+
+#menu-image {
+    max-width: 100%; /* Hace que la imagen se ajuste al ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-bottom: 20px; /* Espacio entre la imagen y el enlace */
+}
+
+/* Estilo para el enlace */
+.github-link {
+    display: inline-block;
+    text-align: center;
+    color: #0073e6; /* Color azul para el enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    font-size: 1.2rem; /* Tamaño adecuado para el enlace */
+    margin-top: 20px; /* Espaciado superior */
+}
+
+/* Efecto de hover sobre el enlace */
+.github-link:hover {
+    color: #005bb5; /* Color más oscuro al pasar el ratón */
+    text-decoration: underline; /* Subraya el enlace al hacer hover */
+}

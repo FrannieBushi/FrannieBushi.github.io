@@ -1,0 +1,58 @@
+.button {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #A097BA; /* Morado claro */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #655C7E; /* Morado intermedio */
+}
+
+#jugar {
+    margin-bottom: 40px; /* Ajusta el valor a tu preferencia */
+}
+
+#score-container {
+    margin-bottom: 20px;
+}
+
+#score-label {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #D3A8E3; /* Morado suave para resaltar la puntuación */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Sombra suave para visibilidad */
+}
+
+/* Estilo para la puntuación */
+#score {
+    font-size: 2em;
+    color: #D3A8E3; /* Puntuación en morado suave */
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Sombra suave para resaltar */
+}
+
+/* Estilo para el botón de inicio */
+#start-button-container {
+    margin-bottom: 20px;
+}
+
+#start-button {
+    font-size: 1.2em;
+    padding: 15px 30px;
+    background-color: #8E4C97; /* Morado para el botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#start-button:hover {
+    background-color: #7A3A7A; /* Morado oscuro para el hover */
+}
