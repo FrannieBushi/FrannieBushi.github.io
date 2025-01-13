@@ -7,7 +7,7 @@ const size = 20;
 let score = 0;
 let gameInterval;
 
-// Dibujar la serpiente
+
 function drawSnake() {
     ctx.fillStyle = '#2A2141';
     snake.forEach(segment => {
@@ -15,7 +15,7 @@ function drawSnake() {
     });
 }
 
-// Dibujar la comida
+
 function drawFood() {
     ctx.fillStyle = '#A097BA';
     ctx.fillRect(food.x, food.y, size, size);
@@ -46,7 +46,7 @@ function updateScore() {
     scoreElement.textContent = score;
 }
 
-// Controlar las teclas de dirección
+
 window.addEventListener('keydown', event => {
     event.preventDefault();
     if (event.key === 'ArrowUp' && direction.y === 0) direction = {x: 0, y: -1};
@@ -55,7 +55,7 @@ window.addEventListener('keydown', event => {
     if (event.key === 'ArrowRight' && direction.x === 0) direction = {x: 1, y: 0};
 });
 
-// Reiniciar el juego
+
 function resetGame() {
     clearInterval(gameInterval);
     snake = [{x: 200, y: 200}];
@@ -74,7 +74,7 @@ function gameLoop() {
     update();
 }
 
-// Iniciar el juego cuando se hace clic en el botón
+
 document.getElementById('start-button').addEventListener('click', () => {
     resetGame(); // Reiniciar el juego
     gameInterval = setInterval(gameLoop, 100); // Iniciar la función de actualización del juego
