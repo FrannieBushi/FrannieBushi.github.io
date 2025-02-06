@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaHelp - Database Connections</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1565c0;
+        }
+        pre {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaHelp - Database Connections</h1>
+        <h2>Connecting to a Database</h2>
+        <p>To establish a connection to a MySQL database, use the following parameters:</p>
+        <pre>
+private final String URL = "jdbc:mysql://localhost:3306/";
+private final String USER = "root";
+private final String PSW = "";
+private Connection conn;
+        </pre>
+        <h2>Executing Queries</h2>
+        <p>To execute a SQL query, use the following method:</p>
+        <pre>
+public static void ejecutarConsulta(Connection conexion, String consulta) {
+    try (Statement stmt = conexion.createStatement()) {
+        stmt.executeUpdate(consulta);
+    } catch (SQLException ex) {
+        Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+        </pre>
+        <h2>Reading Files and Creating Databases</h2>
+        <pre>
+public static void consultarFichero(Connection conexion, String file) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        String line, sentencia = "";
+        while ((line = reader.readLine()) != null) {
+            line = line.trim();
+            if (!line.isEmpty() && !line.startsWith("--")) {
+                sentencia += line + " ";
+                if (line.endsWith(";")) {
+                    ejecutarConsulta(conexion, sentencia.trim());
+                    sentencia = "";
+                }
+            }
+        }
+    } catch (IOException ex) {
+        Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+        </pre>
+        <h2>Deleting Data</h2>
+        <pre>
+String consulta = "DELETE FROM pedidos WHERE codigo = ?";
+        </pre>
+        <h2>Converting Objects to Bytes</h2>
+        <p>To convert any object to bytes using <code>BufferedReader</code>, you can use:</p>
+        <pre>
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ObjectOutputStream out = new ObjectOutputStream(bos);
+out.writeObject(myObject);
+out.flush();
+byte[] objectBytes = bos.toByteArray();
+        </pre>
+        <h2>Converting Bytes Back to Object</h2>
+        <pre>
+ByteArrayInputStream bis = new ByteArrayInputStream(objectBytes);
+ObjectInputStream in = new ObjectInputStream(bis);
+MyClass originalObject = (MyClass) in.readObject();
+        </pre>
+    </div>
+</body>
+</html>
