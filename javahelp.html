@@ -1,97 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaHelp - Database Connections</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e3f2fd;
-            color: #0d47a1;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #1565c0;
-        }
-        pre {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>JavaHelp - Database Connections</h1>
-        <h2>Connecting to a Database</h2>
-        <p>To establish a connection to a MySQL database, use the following parameters:</p>
-        <pre>
-private final String URL = "jdbc:mysql://localhost:3306/";
-private final String USER = "root";
-private final String PSW = "";
-private Connection conn;
-        </pre>
-        <h2>Executing Queries</h2>
-        <p>To execute a SQL query, use the following method:</p>
-        <pre>
-public static void ejecutarConsulta(Connection conexion, String consulta) {
-    try (Statement stmt = conexion.createStatement()) {
-        stmt.executeUpdate(consulta);
-    } catch (SQLException ex) {
-        Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
-        </pre>
-        <h2>Reading Files and Creating Databases</h2>
-        <pre>
-public static void consultarFichero(Connection conexion, String file) {
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line, sentencia = "";
-        while ((line = reader.readLine()) != null) {
-            line = line.trim();
-            if (!line.isEmpty() && !line.startsWith("--")) {
-                sentencia += line + " ";
-                if (line.endsWith(";")) {
-                    ejecutarConsulta(conexion, sentencia.trim());
-                    sentencia = "";
-                }
-            }
-        }
-    } catch (IOException ex) {
-        Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
-        </pre>
-        <h2>Deleting Data</h2>
-        <pre>
-String consulta = "DELETE FROM pedidos WHERE codigo = ?";
-        </pre>
-        <h2>Converting Objects to Bytes</h2>
-        <p>To convert any object to bytes using <code>BufferedReader</code>, you can use:</p>
-        <pre>
-ByteArrayOutputStream bos = new ByteArrayOutputStream();
-ObjectOutputStream out = new ObjectOutputStream(bos);
-out.writeObject(myObject);
-out.flush();
-byte[] objectBytes = bos.toByteArray();
-        </pre>
-        <h2>Converting Bytes Back to Object</h2>
-        <pre>
-ByteArrayInputStream bis = new ByteArrayInputStream(objectBytes);
-ObjectInputStream in = new ObjectInputStream(bis);
-MyClass originalObject = (MyClass) in.readObject();
-        </pre>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>JavaHelp - Programming Blog</title>
+		<style>
+			body {
+				background-color: #1e1e1e;
+				color: #d4d4d4;
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 20px;
+			}
+			.container {
+				max-width: 800px;
+				margin: auto;
+				background: #252526;
+				padding: 20px;
+				border-radius: 10px;
+			}
+			h1, h2 {
+				color: #569cd6;
+			}
+			pre {
+				background: #333;
+				padding: 10px;
+				border-radius: 5px;
+				overflow-x: auto;
+			}
+			code {
+				color: #9cdcfe;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>JavaHelp - Managing Connections in Java</h1>
+			<p>This blog will guide you on how to manage database connections in Java using JDBC.</p>
+			
+			<h2>1. Establish Connection</h2>
+			<pre><code>
+	public class GestorConexion {
+		private Connection conn;
+	   
+		public GestorConexion(){
+			String url = "jdbc:mysql://localhost:3306/";
+			String username = "root";
+			String password = "";
+		   
+			try {
+				conn = DriverManager.getConnection(url, username, password);
+				System.out.println("Connection established.");
+			} catch (SQLException ex) {
+				Logger.getLogger(GestorConexion.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+			</code></pre>
+			
+			<h2>2. Create Database from a File</h2>
+			<pre><code>
+	public void crearBBDD() {
+		try (BufferedReader lector = new BufferedReader(new FileReader("vending.sql"))) {
+			String linea;
+			String comando = "";
+			while ((linea = lector.readLine()) != null) {
+				if (!linea.startsWith("--")) {
+					comando += linea;
+					if (linea.endsWith(";")) {
+						ejecutarComando(comando);
+						comando = "";
+					}
+				}
+			}
+			System.out.println("Database created");
+			lector.close();
+			usarBBDD();
+		} catch (IOException ex) {
+			Logger.getLogger(GestorConexion.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>3. Use Database</h2>
+			<pre><code>
+	public void usarBBDD() {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute("USE vending");
+			stmt.close();
+		} catch (SQLException ex) {
+			Logger.getLogger(GestorConexion.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>4. Delete Database</h2>
+			<pre><code>
+	public void borrarBBDD() {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute("DROP DATABASE IF EXISTS vending");
+			stmt.close();
+		} catch (SQLException ex) {
+			Logger.getLogger(GestorConexion.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>5. Insert Data</h2>
+			<pre><code>
+	public void anyadirProductoAMaquina(int nmaquina, int nproducto, int ncantidad) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO maquina_producto(nmaquina, nproducto, ncantidad) VALUES (?,?,?)");
+			ps.setInt(1, nmaquina);
+			ps.setInt(2, nproducto);
+			ps.setInt(3, ncantidad);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException ex) {
+			Logger.getLogger(EmpresaVending.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>6. Delete Data</h2>
+			<pre><code>
+	public void eliminarProductosMaquina(int ncodigo) {
+		try {
+			PreparedStatement ps = connection.prepareStatement("DELETE FROM maquina_producto WHERE nmaquina = ?");
+			ps.setInt(1, ncodigo);
+			ps.executeUpdate();
+			ps.close();
+
+			PreparedStatement pst = connection.prepareStatement("DELETE FROM maquina WHERE ncodigo = ?");
+			pst.setInt(1, ncodigo);
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException ex) {
+			Logger.getLogger(EmpresaVending.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>7. Retrieve Data</h2>
+			<pre><code>
+	public void mostrarInformacion() {
+		try {
+			Statement st = connection.createStatement();
+			ResultSet resultado = st.executeQuery("SELECT * FROM locales ");
+		} catch (SQLException ex) {
+			Logger.getLogger(EmpresaVending.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+			</code></pre>
+			
+			<h2>8. Convert to Bytes</h2>
+			<pre><code>
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	int c;
+	while ((c = bis.read()) != -1) {
+		baos.write(c);
+	}
+	bis.close();
+	buf = baos.toByteArray();
+			</code></pre>
+		</div>
+	</body>
 </html>
